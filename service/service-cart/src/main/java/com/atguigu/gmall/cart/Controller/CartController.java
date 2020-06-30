@@ -1,15 +1,15 @@
 package com.atguigu.gmall.cart.Controller;
 
 
+import com.atguigu.gmall.cart.Service.CartInfoService;
 import com.atguigu.gmall.cart.Service.CartService;
+import com.atguigu.gmall.cart.Service.impl.CartInfoServiceImpl;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.cart.CartInfo;
 import com.atguigu.gmall.model.order.OrderDetail;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,11 +21,20 @@ import java.util.List;
 @RequestMapping("/api/cart")
 public class CartController {
 
-
+    @Autowired
+    CartInfoService cartInfoService;
 
 
     @Autowired
     private CartService cartService;
+
+    @GetMapping("getCartCheckedList/{userId}")
+    List<CartInfo> getCartCheckedList(@PathVariable("userId") String userId){
+        List<CartInfo> cartInfos = cartInfoService.getCartCheckedList(userId);
+        return cartInfos;
+    }
+
+
 
     @RequestMapping("/getIsCheckedCartList/{userId}")
     List<OrderDetail> getIsCheckedCartList(@PathVariable("userId")String userId){

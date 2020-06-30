@@ -4,6 +4,8 @@ import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.product.BaseAttrInfo;
 import com.atguigu.gmall.model.product.BaseAttrValue;
 import com.atguigu.gmall.product.service.BaseAttrInfoService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +26,12 @@ public class BaseAttrInfoController {
     @GetMapping("getAttrValueList/{attrId}")
     public Result getAttrValue(@PathVariable("attrId") Long attrId){
 
+
         List<BaseAttrValue> baseAttrValues=baseAttrInfoService.getAttrVlue(attrId);
         return Result.ok(baseAttrValues);
 
     }
+
 
 
     @GetMapping("attrInfoList/{category1Id}/{category2Id}/{category3Id}")

@@ -4,6 +4,7 @@ import com.atguigu.gmall.cart.client.CartFeignClient;
 import com.atguigu.gmall.model.cart.CartInfo;
 import com.atguigu.gmall.model.order.OrderDetail;
 import com.atguigu.gmall.model.user.UserAddress;
+import com.atguigu.gmall.order.client.OrderFeignClient;
 import com.atguigu.gmall.userclient.UserFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ import java.util.stream.Collectors;
 @RequestMapping
 
 public class OrderController {
+    @Autowired
+    OrderFeignClient orderFeignClient;
+
 
     @Autowired
     UserFeignClient userFeignClient;
@@ -65,6 +69,10 @@ public class OrderController {
         }
         //modelMap.put("tradeNo", tradeNo);
 
+
+        String tradeNo = orderFeignClient.getTradeNo(userId);
+
+        modelMap.put("tradeNo",tradeNo);
         modelMap.put("totalAmount", totalAmount1);
         modelMap.put("totalNum", totalNum);
 
